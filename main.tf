@@ -9,8 +9,8 @@ module "vpc" {
 
 module "ec2" {
 source            = "./modules/compute"
-vpc_id            = module.network.vpc_id
-public_subnet_ids = module.network.public_subnet_ids
+vpc_id            = module.vpc.vpc_id
+public_subnet_ids = module.vpc.public_subnet_ids
 instance_type     = var.instance_type
 tags              = merge(var.tags, { Project = var.project })
 }
