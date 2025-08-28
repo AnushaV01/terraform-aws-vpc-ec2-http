@@ -6,3 +6,11 @@ module "vpc" {
   private_subnet_cidrs = var.private_subnet_cidrs
   tags                 = merge(var.tags, { Project = var.project })
 }
+
+module "ec2" {
+source            = "./modules/compute"
+vpc_id            = module.network.vpc_id
+public_subnet_ids = module.network.public_subnet_ids
+instance_type     = var.instance_type
+tags              = merge(var.tags, { Project = var.project })
+}
