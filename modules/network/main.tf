@@ -39,3 +39,11 @@ for_each       = aws_subnet.public
 subnet_id      = each.value.id
 route_table_id = aws_route_table.public.id
 }
+
+resource "aws_subnet" "private" {
+for_each          = { for i, cidr in var.private_subnet_cidrs : i => { cidr = cidr, az = local.azs[i] } }
+vpc_id            = aws_vpc.this.id
+cidr_block        = each.value.cidr
+availability_zone = each.value.az
+tags              = merge(var.tags, { Project = var.project, Tier = "Private", Name = "${var.project}-private-${each.key}" })
+}
