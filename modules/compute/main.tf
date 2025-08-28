@@ -29,9 +29,9 @@ resource "aws_vpc_security_group_egress_rule" "all" {
 }
 
 resource "aws_instance" "web" {
-  ami = data.aws_ami.amazon_linux.id
-  instance_type = var.instance_type
-  subnet_id = var.public_subnet_ids[0]
+  ami                    = data.aws_ami.amazon_linux.id
+  instance_type          = var.instance_type
+  subnet_id              = var.public_subnet_ids[0]
   vpc_security_group_ids = [aws_security_group.web.id]
-  tags = var.tags
+  tags                   = var.tags
 }
